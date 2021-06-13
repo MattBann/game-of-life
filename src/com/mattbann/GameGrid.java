@@ -56,6 +56,14 @@ public class GameGrid {
         return grid;
     }
 
+    public void flipCoordinate(int x, int y) {
+        grid[x][y] = !grid[x][y];
+    }
+
+    public void loadSavedState(boolean[][] state) {
+        grid = state;
+    }
+
     private void PlayOnConsole() throws InterruptedException {
         // Populate grid (using coordinates)
         System.out.println("Enter coordinates to populate game grid (space seperated x and y, one per line, type enter nothing to end): ");
@@ -73,11 +81,10 @@ public class GameGrid {
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Coordinate requires 2 numbers, try again");
             }
+            scanner.close();
         } while (true);
 
         while (true) {
-            String input = scanner.nextLine();
-            if (input == "x") break;
             Cycle();
             DisplayGrid();
             Thread.sleep(500);

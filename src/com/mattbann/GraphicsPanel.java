@@ -1,20 +1,26 @@
 package com.mattbann;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
-public class GraphicsPanel extends JPanel {
+public class GraphicsPanel extends JPanel implements MouseInputListener {
 
     private final int GRIDWIDTH, GRIDHEIGHT;
-    private boolean[][] grid;
+    public boolean[][] grid;
+    public boolean[][] savedState;
 
-    public GameGrid game = new GameGrid(100,50,false);
+    public GameGrid game;
 
     public GraphicsPanel(int w, int h) {
         super();
         GRIDWIDTH = w;
         GRIDHEIGHT = h;
+        game = new GameGrid(GRIDWIDTH,GRIDHEIGHT,false);
         grid = game.getGrid();
+        savedState = new boolean[GRIDWIDTH][GRIDHEIGHT];
+        addMouseListener(this);
     }
 
     @Override
@@ -52,6 +58,52 @@ public class GraphicsPanel extends JPanel {
 
     public void ClearGrid() {
         game.InitialiseGrid();
+        grid = game.getGrid();
+        repaint();
+    }
+
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int x = (int) Math.floor(e.getX()/10);
+        int y = (int) Math.floor(e.getY()/10);
+        game.flipCoordinate(x,y);
+        grid = game.getGrid();
+        repaint();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
+
+    public void loadSaved() {
+        game.loadSavedState(savedState);
         grid = game.getGrid();
         repaint();
     }

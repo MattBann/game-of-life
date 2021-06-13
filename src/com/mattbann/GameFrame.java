@@ -12,7 +12,8 @@ public class GameFrame extends JFrame implements ActionListener {
     private GraphicsPanel graphics;
     private Button startStopButton = new Button("Start/Stop");
     private Button stepButton = new Button("Step");
-    private Button resetButton = new Button("Reset");
+    private Button saveStateButton = new Button("Save State");
+    private Button resetButton = new Button("Reset to saved");
     private Button clearGridButton = new Button("Clear Grid");
     private JPanel panel = new JPanel();
 
@@ -24,12 +25,14 @@ public class GameFrame extends JFrame implements ActionListener {
 
         startStopButton.addActionListener(this);
         stepButton.addActionListener(this);
+        saveStateButton.addActionListener(this);
         resetButton.addActionListener(this);
         clearGridButton.addActionListener(this);
 
 
         panel.add(startStopButton);
         panel.add(stepButton);
+        panel.add(saveStateButton);
         panel.add(resetButton);
         panel.add(clearGridButton);
 
@@ -51,8 +54,10 @@ public class GameFrame extends JFrame implements ActionListener {
             return;
         } else if (stepButton.equals(source)) {
             graphics.Cycle();
+        } else if (saveStateButton.equals(source)) {
+            graphics.savedState = graphics.grid;
         } else if (resetButton.equals(source)) {
-            return;
+            graphics.loadSaved();
         } else if (clearGridButton.equals(source)){
             graphics.ClearGrid();
         }
