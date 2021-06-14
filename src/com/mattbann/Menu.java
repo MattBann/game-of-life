@@ -11,6 +11,8 @@ public class Menu implements ActionListener, ChangeListener {
      int currentWidth = 100, currentHeight = 50;
 
      JFrame menu = new JFrame();
+     JPanel widthPanel = new JPanel();
+     JPanel heightPanel = new JPanel();
      SpinnerModel modelW = new SpinnerNumberModel(currentWidth,50,190,1);
      JSpinner widthChoice = new JSpinner(modelW);
      SpinnerModel modelH = new SpinnerNumberModel(currentHeight,25,100,1);
@@ -24,12 +26,16 @@ public class Menu implements ActionListener, ChangeListener {
         startButton.addActionListener(this);
         widthChoice.addChangeListener(this);
 
-        menu.add(widthLabel, BorderLayout.NORTH);
-        menu.add(widthChoice, BorderLayout.NORTH);
-        menu.add(heightLabel, BorderLayout.WEST);
-        menu.add(heightChoice, BorderLayout.EAST);
+        widthPanel.add(widthLabel);
+        widthPanel.add(widthChoice);
+        heightPanel.add(heightLabel);
+        heightPanel.add(heightChoice);
+        menu.add(widthPanel,BorderLayout.NORTH);
+        menu.add(heightPanel);
         menu.add(startButton, BorderLayout.SOUTH);
-        menu.pack();
+        menu.setMinimumSize(new Dimension(200,120));
+        menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // menu.pack();
         menu.setVisible(true);
 
 
