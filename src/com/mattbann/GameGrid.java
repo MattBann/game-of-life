@@ -102,8 +102,12 @@ public class GameGrid {
 
                 if (grid[x][y]) {
                     switch (neighbourCount) {
-                        case 2, 3 -> temp[x][y] = true;
-                        default -> temp[x][y] = false;
+                        case 2: case 3: 
+                            temp[x][y] = true;
+                            break;
+                        default:
+                            temp[x][y] = false;
+                            break;
                     }
                 } else {
                     temp[x][y] = neighbourCount == 3;
