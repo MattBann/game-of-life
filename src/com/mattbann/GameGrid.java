@@ -16,7 +16,7 @@ public class GameGrid {
         return gridHeight;
     }
 
-    public GameGrid(int w, int h, Boolean console) {
+    public GameGrid(int w, int h, boolean console, boolean isRandom) {
 
         gridWidth = w;
         gridHeight = h;
@@ -24,7 +24,8 @@ public class GameGrid {
         // Initialise grid
         grid = new boolean[gridWidth][gridHeight];
         Random rand = new Random();
-        InitialiseGrid(rand);
+        if (isRandom) InitialiseGrid(rand); 
+        else InitialiseGrid();;
 
         if (console) {
             try {
@@ -81,8 +82,8 @@ public class GameGrid {
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Coordinate requires 2 numbers, try again");
             }
-            scanner.close();
         } while (true);
+        scanner.close();
 
         while (true) {
             Cycle();

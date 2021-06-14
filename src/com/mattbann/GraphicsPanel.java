@@ -3,21 +3,30 @@ package com.mattbann;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.LocalDateTime;
 
-public class GraphicsPanel extends JPanel implements MouseInputListener {
+public class GraphicsPanel extends JPanel implements MouseInputListener, ActionListener {
 
     private final int GRIDWIDTH, GRIDHEIGHT;
     public boolean[][] grid;
     public boolean[][] savedState;
+    private final int SPACING = 15;
+    public boolean active = false;
+
+    public Timer timer = new Timer(500,this);
 
     public GameGrid game;
 
-    public GraphicsPanel(int w, int h) {
+    public GraphicsPanel(int w, int h, boolean isRandom) {
         super();
         GRIDWIDTH = w;
         GRIDHEIGHT = h;
-        game = new GameGrid(GRIDWIDTH,GRIDHEIGHT,false);
+        game = new GameGrid(GRIDWIDTH,GRIDHEIGHT,false, isRandom);
         grid = game.getGrid();
         savedState = new boolean[GRIDWIDTH][GRIDHEIGHT];
         addMouseListener(this);
@@ -25,7 +34,7 @@ public class GraphicsPanel extends JPanel implements MouseInputListener {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(GRIDWIDTH*10+1,GRIDHEIGHT*10+1);
+        return new Dimension(GRIDWIDTH*SPACING+1,GRIDHEIGHT*SPACING+1);
     }
 
     @Override
@@ -43,9 +52,9 @@ public class GraphicsPanel extends JPanel implements MouseInputListener {
                 else {
                     g.setColor(Color.orange);
                 }
-                g.fillRect(x*10,y*10,10,10);
+                g.fillRect(x*SPACING,y*SPACING,SPACING,SPACING);
                 g.setColor(Color.lightGray);
-                g.drawRect(x*10,y*10,10,10);
+                g.drawRect(x*SPACING,y*SPACING,SPACING,SPACING);
             }
         }
     }
@@ -65,8 +74,8 @@ public class GraphicsPanel extends JPanel implements MouseInputListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int x = (int) Math.floor(e.getX()/10);
-        int y = (int) Math.floor(e.getY()/10);
+        int x = (int) Math.floor(e.getX()/SPACING);
+        int y = (int) Math.floor(e.getY()/SPACING);
         game.flipCoordinate(x,y);
         grid = game.getGrid();
         repaint();
@@ -106,5 +115,15 @@ public class GraphicsPanel extends JPanel implements MouseInputListener {
         game.loadSavedState(savedState);
         grid = game.getGrid();
         repaint();
+    }
+    
+    public void autoCycle() {
+        if (active) timer.start();
+        else timer.stop();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Cycle();
     }
 }

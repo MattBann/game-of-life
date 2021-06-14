@@ -17,11 +17,11 @@ public class GameFrame extends JFrame implements ActionListener {
     private Button clearGridButton = new Button("Clear Grid");
     private JPanel panel = new JPanel();
 
-    public GameFrame(int w, int h) {
+    public GameFrame(int w, int h, boolean isRandom) {
         super();
         gridWidth = w;
         gridHeight = h;
-        graphics = new GraphicsPanel(gridWidth,gridHeight);
+        graphics = new GraphicsPanel(gridWidth,gridHeight, isRandom);
 
         startStopButton.addActionListener(this);
         stepButton.addActionListener(this);
@@ -51,7 +51,13 @@ public class GameFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (startStopButton.equals(source)) {
-            return;
+            if (graphics.active) {
+                graphics.active = false;
+                graphics.autoCycle();
+            } else {
+                graphics.active = true;
+                graphics.autoCycle();
+            }
         } else if (stepButton.equals(source)) {
             graphics.Cycle();
         } else if (saveStateButton.equals(source)) {

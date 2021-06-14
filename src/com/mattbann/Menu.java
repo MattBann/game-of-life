@@ -13,6 +13,7 @@ public class Menu implements ActionListener, ChangeListener {
      JFrame menu = new JFrame();
      JPanel widthPanel = new JPanel();
      JPanel heightPanel = new JPanel();
+     JPanel randomPanel = new JPanel();
      SpinnerModel modelW = new SpinnerNumberModel(currentWidth,50,190,1);
      JSpinner widthChoice = new JSpinner(modelW);
      SpinnerModel modelH = new SpinnerNumberModel(currentHeight,25,100,1);
@@ -20,18 +21,23 @@ public class Menu implements ActionListener, ChangeListener {
      JLabel widthLabel = new JLabel("Width:");
      JLabel heightLabel = new JLabel("Height:");
      JButton startButton = new JButton("Start");
+     JCheckBox randomCheckBox = new JCheckBox("Randomise?");
 
     public Menu() {
 
         startButton.addActionListener(this);
         widthChoice.addChangeListener(this);
 
+        randomCheckBox.setSelected(true);
+
         widthPanel.add(widthLabel);
         widthPanel.add(widthChoice);
         heightPanel.add(heightLabel);
         heightPanel.add(heightChoice);
+        randomPanel.add(randomCheckBox);
         menu.add(widthPanel,BorderLayout.NORTH);
         menu.add(heightPanel);
+        menu.add(randomPanel, BorderLayout.SOUTH);
         menu.add(startButton, BorderLayout.SOUTH);
         menu.setMinimumSize(new Dimension(200,120));
         menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,7 +50,9 @@ public class Menu implements ActionListener, ChangeListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         menu.setVisible(false);
-        GameFrame GUIGame = new GameFrame(currentWidth,currentHeight);
+        boolean isRandom = randomCheckBox.isSelected();
+
+        GameFrame GUIGame = new GameFrame(currentWidth,currentHeight,isRandom);
 
     }
 
