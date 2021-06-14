@@ -10,7 +10,9 @@ import java.awt.event.ActionListener;
 public class Menu implements ActionListener, ChangeListener {
      int currentWidth = 100, currentHeight = 50;
 
-     JFrame menu = new JFrame();
+     JFrame pane = new JFrame();
+     JPanel menu = new JPanel(new GridBagLayout());
+     GridBagConstraints c = new GridBagConstraints();
      JPanel widthPanel = new JPanel();
      JPanel heightPanel = new JPanel();
      JPanel randomPanel = new JPanel();
@@ -30,19 +32,34 @@ public class Menu implements ActionListener, ChangeListener {
 
         randomCheckBox.setSelected(true);
 
-        widthPanel.add(widthLabel);
-        widthPanel.add(widthChoice);
-        heightPanel.add(heightLabel);
-        heightPanel.add(heightChoice);
-        randomPanel.add(randomCheckBox);
-        menu.add(widthPanel,BorderLayout.NORTH);
-        menu.add(heightPanel);
-        menu.add(randomPanel, BorderLayout.SOUTH);
-        menu.add(startButton, BorderLayout.SOUTH);
-        menu.setMinimumSize(new Dimension(200,120));
-        menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // menu.pack();
-        menu.setVisible(true);
+        // widthPanel.add(widthLabel);
+        // widthPanel.add(widthChoice);
+        // heightPanel.add(heightLabel);
+        // heightPanel.add(heightChoice);
+        // randomPanel.add(randomCheckBox);
+        c.fill = GridBagConstraints.BOTH;
+        c.gridx = 0; c.gridy = 0;
+        menu.add(widthLabel,c);
+        c.gridx = 1;
+        menu.add(widthChoice,c);
+        c.gridx = 0; c.gridy = 1;
+        menu.add(heightLabel,c);
+        c.gridx = 1;
+        menu.add(heightChoice,c);
+        c.gridx = 0; c.gridy = 2; c.gridwidth = 2;
+        menu.add(randomCheckBox,c);
+        c.gridy = 3;
+        menu.add(startButton,c);
+        
+        // menu.add(widthPanel);
+        // menu.add(heightPanel);
+        // menu.add(randomPanel);
+        // menu.add(startButton);
+        pane.add(menu);
+        pane.setMinimumSize(new Dimension(200,120));
+        pane.setResizable(false);
+        pane.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pane.setVisible(true);
 
 
     }

@@ -36,12 +36,13 @@ public class GameFrame extends JFrame implements ActionListener {
         panel.add(resetButton);
         panel.add(clearGridButton);
 
-        add(graphics, BorderLayout.NORTH);
+        add(graphics, BorderLayout.CENTER);
         add(panel, BorderLayout.SOUTH);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Game of life");
         pack();
+        setResizable(false);
         setVisible(true);
 
     }
