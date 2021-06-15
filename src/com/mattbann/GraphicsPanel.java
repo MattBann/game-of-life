@@ -25,7 +25,7 @@ public class GraphicsPanel extends JPanel implements MouseInputListener, ActionL
         GRIDWIDTH = w;
         GRIDHEIGHT = h;
         currentSpeed = speed;
-        timer = new Timer((1/currentSpeed)*1000,this);
+        timer = new Timer(1000/currentSpeed,this);
         game = new GameGrid(GRIDWIDTH,GRIDHEIGHT,false, isRandom);
         grid = game.getGrid();
         savedState = new boolean[GRIDWIDTH][GRIDHEIGHT];
