@@ -10,19 +10,22 @@ import java.awt.event.MouseEvent;
 public class GraphicsPanel extends JPanel implements MouseInputListener, ActionListener {
 
     private final int GRIDWIDTH, GRIDHEIGHT;
+    private int currentSpeed;
     public boolean[][] grid;
     public boolean[][] savedState;
     private final int SPACING = 15;
     public boolean active = false;
 
-    public Timer timer = new Timer(500,this);
+    public Timer timer;
 
     public GameGrid game;
 
-    public GraphicsPanel(int w, int h, boolean isRandom) {
+    public GraphicsPanel(int w, int h, boolean isRandom, int speed) {
         super();
         GRIDWIDTH = w;
         GRIDHEIGHT = h;
+        currentSpeed = speed;
+        timer = new Timer((1/currentSpeed)*1000,this);
         game = new GameGrid(GRIDWIDTH,GRIDHEIGHT,false, isRandom);
         grid = game.getGrid();
         savedState = new boolean[GRIDWIDTH][GRIDHEIGHT];
