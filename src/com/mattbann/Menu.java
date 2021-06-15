@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 public class Menu implements ActionListener, ChangeListener {
      int currentWidth = 100, currentHeight = 50;
 
+     GameFrame GUIGame;
+
      JFrame pane = new JFrame();
      JPanel menu = new JPanel(new GridBagLayout());
      GridBagConstraints c = new GridBagConstraints();
@@ -69,7 +71,7 @@ public class Menu implements ActionListener, ChangeListener {
         menu.setVisible(false);
         boolean isRandom = randomCheckBox.isSelected();
 
-        GameFrame GUIGame = new GameFrame(currentWidth,currentHeight,isRandom);
+        GUIGame = new GameFrame(currentWidth,currentHeight,isRandom);
 
     }
 

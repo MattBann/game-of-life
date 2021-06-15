@@ -6,9 +6,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.time.Clock;
-import java.time.Instant;
-import java.time.LocalDateTime;
 
 public class GraphicsPanel extends JPanel implements MouseInputListener, ActionListener {
 
