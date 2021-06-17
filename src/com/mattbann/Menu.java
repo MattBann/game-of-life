@@ -18,9 +18,9 @@ public class Menu implements ActionListener, ChangeListener {
     //  JPanel widthPanel = new JPanel();
     //  JPanel heightPanel = new JPanel();
     //  JPanel randomPanel = new JPanel();
-     SpinnerModel modelW = new SpinnerNumberModel(currentWidth,50,190,1);
+     SpinnerModel modelW = new SpinnerNumberModel(currentWidth,40,190,1);
      JSpinner widthChoice = new JSpinner(modelW);
-     SpinnerModel modelH = new SpinnerNumberModel(currentHeight,25,100,1);
+     SpinnerModel modelH = new SpinnerNumberModel(currentHeight,20,100,1);
      JSpinner heightChoice = new JSpinner(modelH);
      JLabel widthLabel = new JLabel("Width:");
      JLabel heightLabel = new JLabel("Height:");
@@ -34,6 +34,7 @@ public class Menu implements ActionListener, ChangeListener {
 
         startButton.addActionListener(this);
         widthChoice.addChangeListener(this);
+        heightChoice.addChangeListener(this);
         speedSpinner.addChangeListener(this);
 
         randomCheckBox.setSelected(true);
@@ -44,6 +45,7 @@ public class Menu implements ActionListener, ChangeListener {
         // heightPanel.add(heightChoice);
         // randomPanel.add(randomCheckBox);
         c.fill = GridBagConstraints.BOTH;
+        c.ipady = 5;
         c.gridx = 0; c.gridy = 0;
         menu.add(widthLabel,c);
         c.gridx = 1;
@@ -66,7 +68,8 @@ public class Menu implements ActionListener, ChangeListener {
         // menu.add(randomPanel);
         // menu.add(startButton);
         pane.add(menu);
-        pane.setMinimumSize(new Dimension(200,140));
+        pane.setMinimumSize(new Dimension(200,200));
+        pane.pack();
         pane.setResizable(false);
         pane.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pane.setVisible(true);
@@ -76,7 +79,7 @@ public class Menu implements ActionListener, ChangeListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        menu.setVisible(false);
+        pane.setVisible(false);
         boolean isRandom = randomCheckBox.isSelected();
 
         GUIGame = new GameFrame(currentWidth,currentHeight,isRandom,currentSpeed);
@@ -85,9 +88,10 @@ public class Menu implements ActionListener, ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        if (widthChoice.equals(e.getSource())) {
+        Object source = e.getSource();
+        if (widthChoice.equals(source)) {
             currentWidth = (int) widthChoice.getValue();
-        } else if (heightChoice.equals(e.getSource())) {
+        } else if (heightChoice.equals(source)) {
             currentHeight = (int) heightChoice.getValue();
         } else {
             currentSpeed = (int) speedSpinner.getValue();

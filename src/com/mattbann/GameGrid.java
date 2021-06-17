@@ -5,7 +5,8 @@ import java.util.Random;
 
 public class GameGrid {
 
-    private int gridWidth, gridHeight;
+    private int gridWidth;
+    private final int gridHeight;
     private boolean[][] grid;
 
     public int getGridWidth() {
@@ -25,7 +26,7 @@ public class GameGrid {
         grid = new boolean[gridWidth][gridHeight];
         Random rand = new Random();
         if (isRandom) InitialiseGrid(rand); 
-        else InitialiseGrid();;
+        else InitialiseGrid();
 
         if (console) {
             try {
@@ -76,7 +77,7 @@ public class GameGrid {
                 String[] coords = input.split("\s");
                 int x = Integer.parseInt(coords[0]), y = Integer.parseInt(coords[1]);
                 PopulateGrid(x, y);
-                DisplayGrid();
+                DisplayGrid(grid);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input, try again");
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -87,7 +88,7 @@ public class GameGrid {
 
         while (true) {
             Cycle();
-            DisplayGrid();
+            DisplayGrid(grid);
             Thread.sleep(500);
         }
 
@@ -142,7 +143,7 @@ public class GameGrid {
         }
     }
 
-    private void DisplayGrid() {
+    public void DisplayGrid(boolean[][] grid) {
         for (int i = 0; i < gridWidth; i++) System.out.print("_");
         System.out.println();
         for (int y = 0; y < gridHeight; y++) {

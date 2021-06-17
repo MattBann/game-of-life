@@ -11,7 +11,6 @@ public class GraphicsPanel extends JPanel implements MouseInputListener, ActionL
 
     private final int GRIDWIDTH, GRIDHEIGHT;
     private int currentSpeed;
-    public boolean[][] grid;
     public boolean[][] savedState;
     private final int SPACING = 15;
     public boolean active = false;
@@ -27,8 +26,8 @@ public class GraphicsPanel extends JPanel implements MouseInputListener, ActionL
         currentSpeed = speed;
         timer = new Timer(1000/currentSpeed,this);
         game = new GameGrid(GRIDWIDTH,GRIDHEIGHT,false, isRandom);
-        grid = game.getGrid();
         savedState = new boolean[GRIDWIDTH][GRIDHEIGHT];
+        saveState();
         addMouseListener(this);
     }
 
@@ -46,7 +45,7 @@ public class GraphicsPanel extends JPanel implements MouseInputListener, ActionL
     private void drawGrid(Graphics g) {
         for (int y = 0; y < GRIDHEIGHT; y++) {
             for (int x = 0; x < GRIDWIDTH; x++) {
-                if (grid[x][y]) {
+                if (game.getGrid()[x][y]) {
                     g.setColor(Color.black);
                 }
                 else {
@@ -61,13 +60,11 @@ public class GraphicsPanel extends JPanel implements MouseInputListener, ActionL
 
     public void Cycle() {
         game.Cycle();
-        grid = game.getGrid();
         repaint();
     }
 
     public void ClearGrid() {
         game.InitialiseGrid();
-        grid = game.getGrid();
         repaint();
     }
 
@@ -77,8 +74,8 @@ public class GraphicsPanel extends JPanel implements MouseInputListener, ActionL
         int x = (int) Math.floor(e.getX()/SPACING);
         int y = (int) Math.floor(e.getY()/SPACING);
         game.flipCoordinate(x,y);
-        grid = game.getGrid();
         repaint();
+
     }
 
     @Override
@@ -113,7 +110,6 @@ public class GraphicsPanel extends JPanel implements MouseInputListener, ActionL
 
     public void loadSaved() {
         game.loadSavedState(savedState);
-        grid = game.getGrid();
         repaint();
     }
     
@@ -125,5 +121,14 @@ public class GraphicsPanel extends JPanel implements MouseInputListener, ActionL
     @Override
     public void actionPerformed(ActionEvent e) {
         Cycle();
+    }
+
+    public void saveState() {
+        boolean[][] grid = game.getGrid();
+        for (int y = 0; y < GRIDHEIGHT; y++) {
+            for (int x = 0; x < GRIDWIDTH; x++) {
+                savedState[x][y] = grid[x][y];
+            }
+        }
     }
 }

@@ -52,17 +52,12 @@ public class GameFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (startStopButton.equals(source)) {
-            if (graphics.active) {
-                graphics.active = false;
-                graphics.autoCycle();
-            } else {
-                graphics.active = true;
-                graphics.autoCycle();
-            }
+            graphics.active = !graphics.active;
+            graphics.autoCycle();
         } else if (stepButton.equals(source)) {
             graphics.Cycle();
         } else if (saveStateButton.equals(source)) {
-            graphics.savedState = graphics.grid;
+            graphics.saveState();
         } else if (resetButton.equals(source)) {
             graphics.loadSaved();
         } else if (clearGridButton.equals(source)){
