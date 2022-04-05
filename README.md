@@ -1,7 +1,7 @@
-# The Game of Life
+# Game of Life
 This is a Java based implementation of John Conway's game of life.
 
-# Explanation
+## Explanation
 
 In a grid, each cell is either 'alive' (black) or 'dead' (yellow).
 What happens to a cell depends on the number of alive neighbours.
@@ -14,4 +14,4 @@ If dead:
 
 For a better explanation: https://youtu.be/R9Plq-D1gEk
 
-This version allows you to change the closed grid size, randomise the grid and save the grids state.
+This version allows you to change the closed grid size, randomise the grid and save/load the grids state.
