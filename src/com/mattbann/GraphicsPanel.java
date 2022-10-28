@@ -14,18 +14,20 @@ public class GraphicsPanel extends JPanel implements MouseInputListener, ActionL
     public boolean[][] savedState;
     private final int SPACING = 15;
     public boolean active = false;
+    private boolean[][] grid;
 
     public Timer timer;
 
     public GameGrid game;
 
-    public GraphicsPanel(int w, int h, boolean isRandom, int speed) {
+    public GraphicsPanel(int w, int h, boolean isRandom, int speed, int density) {
         super();
         GRIDWIDTH = w;
         GRIDHEIGHT = h;
         currentSpeed = speed;
-        timer = new Timer(1000/currentSpeed,this);
-        game = new GameGrid(GRIDWIDTH,GRIDHEIGHT,false, isRandom);
+        timer = new Timer((11-currentSpeed)*100,this);
+        game = new GameGrid(GRIDWIDTH,GRIDHEIGHT,false, isRandom, density);
+        grid = game.getGrid();
         savedState = new boolean[GRIDWIDTH][GRIDHEIGHT];
         saveState();
         addMouseListener(this);
@@ -45,7 +47,7 @@ public class GraphicsPanel extends JPanel implements MouseInputListener, ActionL
     private void drawGrid(Graphics g) {
         for (int y = 0; y < GRIDHEIGHT; y++) {
             for (int x = 0; x < GRIDWIDTH; x++) {
-                if (game.getGrid()[x][y]) {
+                if (grid[x][y]) {
                     g.setColor(Color.black);
                 }
                 else {

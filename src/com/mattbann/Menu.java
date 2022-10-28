@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Menu implements ActionListener, ChangeListener {
-     int currentWidth = 100, currentHeight = 50, currentSpeed = 2;
+     int currentWidth = 100, currentHeight = 50, currentSpeed = 2, currentDensity = 5;
 
      GameFrame GUIGame;
 
@@ -26,6 +26,9 @@ public class Menu implements ActionListener, ChangeListener {
      JLabel heightLabel = new JLabel("Height:");
      JButton startButton = new JButton("Start");
      JCheckBox randomCheckBox = new JCheckBox("Randomise?");
+     JLabel densityLabel = new JLabel("Pop. Density:");
+     SpinnerModel modelD = new SpinnerNumberModel(currentDensity,1,10,1);
+     JSpinner densitySpinner = new JSpinner(modelD);
      SpinnerModel modelS = new SpinnerNumberModel(currentSpeed,1,10,1);
      JSpinner speedSpinner = new JSpinner(modelS);
      JLabel speedLabel = new JLabel("Game speed:");
@@ -36,6 +39,7 @@ public class Menu implements ActionListener, ChangeListener {
         widthChoice.addChangeListener(this);
         heightChoice.addChangeListener(this);
         speedSpinner.addChangeListener(this);
+        densitySpinner.addChangeListener(this);
 
         randomCheckBox.setSelected(true);
 
@@ -60,7 +64,11 @@ public class Menu implements ActionListener, ChangeListener {
         menu.add(speedSpinner,c);
         c.gridx = 0; c.gridy = 3; c.gridwidth = 2;
         menu.add(randomCheckBox,c);
-        c.gridy = 4;
+        c.gridx = 0; c.gridy = 4;
+        menu.add(densityLabel,c);
+        c.gridx = 1;
+        menu.add(densitySpinner,c);
+        c.gridx = 0; c.gridy = 5;
         menu.add(startButton,c);
         
         // menu.add(widthPanel);
@@ -82,7 +90,7 @@ public class Menu implements ActionListener, ChangeListener {
         pane.setVisible(false);
         boolean isRandom = randomCheckBox.isSelected();
 
-        GUIGame = new GameFrame(currentWidth,currentHeight,isRandom,currentSpeed);
+        GUIGame = new GameFrame(currentWidth,currentHeight,isRandom,currentSpeed,currentDensity);
 
     }
 
@@ -93,8 +101,10 @@ public class Menu implements ActionListener, ChangeListener {
             currentWidth = (int) widthChoice.getValue();
         } else if (heightChoice.equals(source)) {
             currentHeight = (int) heightChoice.getValue();
-        } else {
+        } else if (speedSpinner.equals(e.getSource())) {
             currentSpeed = (int) speedSpinner.getValue();
+        } else if (densitySpinner.equals(e.getSource())){
+            currentDensity = (int) densitySpinner.getValue();
         }
     }
 }

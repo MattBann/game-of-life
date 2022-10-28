@@ -17,11 +17,11 @@ public class GameFrame extends JFrame implements ActionListener {
     private Button clearGridButton = new Button("Clear Grid");
     private JPanel panel = new JPanel();
 
-    public GameFrame(int w, int h, boolean isRandom,int speed) {
+    public GameFrame(int w, int h, boolean isRandom,int speed, int density) {
         super();
         gridWidth = w;
         gridHeight = h;
-        graphics = new GraphicsPanel(gridWidth,gridHeight, isRandom, speed);
+        graphics = new GraphicsPanel(gridWidth,gridHeight, isRandom, speed, density);
 
         startStopButton.addActionListener(this);
         stepButton.addActionListener(this);

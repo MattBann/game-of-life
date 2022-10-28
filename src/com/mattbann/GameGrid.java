@@ -8,6 +8,7 @@ public class GameGrid {
     private int gridWidth;
     private final int gridHeight;
     private boolean[][] grid;
+    private int popDensity;
 
     public int getGridWidth() {
         return gridWidth;
@@ -17,7 +18,7 @@ public class GameGrid {
         return gridHeight;
     }
 
-    public GameGrid(int w, int h, boolean console, boolean isRandom) {
+    public GameGrid(int w, int h, boolean console, boolean isRandom, int density) {
 
         gridWidth = w;
         gridHeight = h;
@@ -25,6 +26,7 @@ public class GameGrid {
         // Initialise grid
         grid = new boolean[gridWidth][gridHeight];
         Random rand = new Random();
+        popDensity = density;
         if (isRandom) InitialiseGrid(rand); 
         else InitialiseGrid();
 
@@ -49,7 +51,7 @@ public class GameGrid {
     public void InitialiseGrid(Random rand) {
         for (int i = 0; i < gridWidth; i++) {
             for (int j = 0; j < gridHeight; j++) {
-                grid[i][j] = rand.nextBoolean();
+                grid[i][j] = rand.nextInt(11)+1 <= popDensity;
             }
         }
     }
