@@ -74,7 +74,7 @@ public class GameGrid {
             String input = scanner.nextLine();
             if (input.equals("")) break;
             try {
-                String[] coords = input.split("\s");
+                String[] coords = input.split("\\s");
                 int x = Integer.parseInt(coords[0]), y = Integer.parseInt(coords[1]);
                 PopulateGrid(x, y);
                 DisplayGrid(grid);
@@ -148,7 +148,7 @@ public class GameGrid {
         System.out.println();
         for (int y = 0; y < gridHeight; y++) {
             for (int x = 0; x < gridWidth; x++) {
-                System.out.print(grid[x][y] ? "⬛" : "⬜");
+                System.out.print(grid[x][y] ? "@ " : "# ");
             }
             System.out.println();
         }
