@@ -14,4 +14,6 @@ If dead:
 
 For a better explanation: https://youtu.be/R9Plq-D1gEk
 
-This version allows you to change the closed grid size, randomise the grid and save/load the grids state.
+## Usage
+This implementation allows you to change the closed grid size, randomise the grid and save/load the grids state.
+Click cells to switch their state and use the buttons at the bottom to control the simulation
